@@ -25,6 +25,13 @@ class DashboardController extends GetxController {
   ];
   RxInt indexView = RxInt(0);
   Widget getWidget() => widgets[indexView.value].widget;
+  String getTitle() => widgets[indexView.value].name;
+  String getText() =>
+      'أضافة ${indexView.value == 1
+          ? 'مريض'
+          : indexView.value == 2
+          ? 'دكتور'
+          : 'حجز'}';
   void changeIndexView(int index) {
     indexView.value = index;
   }
