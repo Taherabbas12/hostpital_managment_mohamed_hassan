@@ -1,37 +1,163 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hostpital_managment/controllers/doctor_controller.dart';
+import 'package:hostpital_managment/controllers/patient_controller.dart';
 import 'package:hostpital_managment/ui/widgets/message_snak.dart';
-import 'package:hostpital_managment/utils/constants/style_app.dart';
 
+import '../data/models/appointment_model.dart';
 import '../data/models/patient_model.dart';
 import '../data/repositories/database_helper.dart';
-import '../ui/dasboard/patients/edit_patinet.dart';
 import '../ui/widgets/common/loading_indicator.dart';
-import '../ui/widgets/common/show_modal_bottom_sheet_c.dart';
+import '../ui/widgets/more_widgets.dart';
 import '../utils/constants/color_app.dart';
-import '../utils/constants/values_constant.dart';
 
 class AppointmentController extends GetxController {
   //
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   TextEditingController searchPatient = TextEditingController();
-  TextEditingController namePatient = TextEditingController();
-  TextEditingController agePatient = TextEditingController();
-  TextEditingController addressPatient = TextEditingController();
-  TextEditingController phoneNumberPatient = TextEditingController();
-  RxString gender = RxString('');
+  var appointments = <Appointment>[].obs;
+  var appointmentsSelectDate = <Appointment>[].obs;
+  var appointmentsSelectDateFilter = <Appointment>[].obs;
+  @override
+  void onInit() {
+    super.onInit();
+
+    fetchAppointments().then((v) {
+      print(appointments.value);
+
+      appointmentsSelectDateFilter.value = appointments.value;
+      print(appointmentsSelectDateFilter.value);
+    });
+  }
+
+  // ✅ إضافة موعد جديد
+  Future<void> addAppointment(Appointment appointment) async {
+    final db = await _dbHelper.database;
+    await db.insert('appointments', appointment.toMap());
+    fetchAppointments();
+  }
+
+  // ✅ جلب جميع المواعيد مع تفاصيل المرضى والأطباء
+  Future<void> fetchAppointments() async {
+    final db = await _dbHelper.database;
+
+    final List<Map<String, dynamic>> maps = await db.rawQuery('''
+      SELECT 
+        a.id, a.patient_id, a.doctor_id, a.appointment_date, a.appointment_number, a.status,
+        p.name AS patient_name, p.age AS patient_age, p.gender AS patient_gender, p.address AS patient_address, p.phone AS patient_phone,
+        d.name AS doctor_name, d.specialty AS doctor_specialty, d.gender AS doctor_gender, d.address AS doctor_address, d.phone AS doctor_phone
+      FROM appointments a
+      JOIN patients p ON a.patient_id = p.id
+      JOIN doctors d ON a.doctor_id = d.id
+    ''');
+
+    appointments.value = maps.map((map) => Appointment.fromMap(map)).toList();
+  }
+
+  // ✅ تحديث موعد
+  Future<void> updateAppointment(Appointment appointment) async {
+    final db = await _dbHelper.database;
+    await db.update(
+      'appointments',
+      appointment.toMap(),
+      where: 'id = ?',
+      whereArgs: [appointment.id],
+    );
+    fetchAppointments();
+  }
+
+  // ✅ حذف موعد
+  Future<void> deleteAppointment(int id) async {
+    final db = await _dbHelper.database;
+    await db.delete('appointments', where: 'id = ?', whereArgs: [id]);
+    fetchAppointments();
+  }
+
+  RxInt time = RxInt(8);
+  RxInt selectAppointment = RxInt(-1);
+  void selectChangeAppointment(int index) {
+    selectAppointment(index);
+  }
+
+  Rx<DateTime?> dateTime = Rx(null);
+
+  Future<void> selectDateTime() async {
+    DateTime? pickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2026),
+    );
+
+    if (pickedDate != null) {
+      dateTime.value = pickedDate;
+      appointmentsSelectDate.value =
+          appointments
+              .where(
+                (p0) =>
+                    getFormattedDateOnlyDate(dateTime.value.toString()) ==
+                    p0.appointmentDate,
+              )
+              .toList();
+      print('_____________');
+      print(appointmentsSelectDate.value);
+      print('_____________');
+    }
+  }
+
+  Rx<DateTime?> dateTimeFilter = Rx(null);
+  Future<void> selectDateTimeFilter() async {
+    DateTime? pickedDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2026),
+    );
+
+    if (pickedDate != null) {
+      dateTimeFilter.value = pickedDate;
+      appointmentsSelectDateFilter.value =
+          appointments
+              .where(
+                (p0) =>
+                    getFormattedDateOnlyDate(dateTimeFilter.value.toString()) ==
+                    p0.appointmentDate,
+              )
+              .toList();
+      print('_____________');
+      print(appointmentsSelectDate.value);
+      print('_____________');
+    }
+  }
+
+  void clearFilter() {
+    dateTimeFilter.value = null;
+    appointmentsSelectDateFilter.value = appointments.value;
+  }
+
+  bool checkAppointment(int index) {
+    Appointment? select =
+        appointmentsSelectDate
+            .where((p0) => p0.appointmentNumber == (index + 8).toString())
+            .firstOrNull;
+    return select != null;
+  }
+
+  DoctorController doctorController = Get.find<DoctorController>();
+  PatientController patientController = Get.find<PatientController>();
   RxBool isLoading = false.obs;
-  void addPatien() async {
-    if (formKey.currentState!.validate() && gender.isNotEmpty) {
+  void addAppointmentUi() async {
+    if (doctorController.selectDoctor.value != null &&
+        patientController.selectPatient.value != null &&
+        dateTime.value != null &&
+        selectAppointment.value >= 0) {
       isLoading(true);
-      await addPatient(
-        Patient(
-          address: addressPatient.text.trim(),
-          age: int.parse(agePatient.text.trim()),
-          gender: gender.value,
-          name: namePatient.text.trim(),
-          phone: phoneNumberPatient.text.trim(),
+      await addAppointment(
+        Appointment(
+          appointmentDate: getFormattedDateOnlyDate(dateTime.value.toString()),
+          appointmentNumber: (selectAppointment.value + 8).toString(),
+          doctorId: doctorController.selectDoctor.value!.id!,
+          patientId: patientController.selectPatient.value!.id!,
+          status: '',
         ),
       );
 
@@ -39,6 +165,7 @@ class AppointmentController extends GetxController {
       isLoading(false);
       Get.backLegacy();
       clearData();
+
       MessageSnak.message('تمت اضافة المريض بنجاح', color: ColorApp.greenColor);
     } else {
       MessageSnak.message('يرجى ملأ كل الحقول');
@@ -46,86 +173,13 @@ class AppointmentController extends GetxController {
   }
 
   clearData() {
-    addressPatient.text = '';
-    agePatient.text = '';
-    gender.value = '';
-    namePatient.text = '';
-    phoneNumberPatient.text = '';
+    doctorController.selectDoctor.value = null;
+    patientController.selectPatient.value = null;
+    dateTime.value = null;
+    selectAppointment(-1);
   }
 
   //
-  Patient? patientUpdata;
-  void editPatien(Patient patient) {
-    patientUpdata = patient;
-    addressPatient.text = patient.address;
-    agePatient.text = patient.age.toString();
-    gender.value = patient.gender;
-    namePatient.text = patient.name;
-    phoneNumberPatient.text = patient.phone;
-
-    Get.generalDialog(
-      barrierDismissible: true,
-      barrierLabel: '',
-      pageBuilder: (context, animation, secondaryAnimation) => EditPatinet(),
-    );
-  }
-
-  void updataPatien() async {
-    if (formKey.currentState!.validate() && gender.isNotEmpty) {
-      isLoading(true);
-      patientUpdata!.address = addressPatient.text.trim();
-      patientUpdata!.age = int.parse(agePatient.text.trim());
-      patientUpdata!.gender = gender.value;
-      patientUpdata!.name = namePatient.text.trim();
-      patientUpdata!.phone = phoneNumberPatient.text.trim();
-
-      await Future.delayed(Duration(seconds: 1));
-
-      await updatePatient(patientUpdata!);
-
-      isLoading(false);
-      Get.backLegacy();
-      clearData();
-      MessageSnak.message('تمت اضافة المريض بنجاح', color: ColorApp.greenColor);
-    } else {
-      MessageSnak.message('يرجى ملأ كل الحقول');
-    }
-  }
-
-  //
-  void selectGender() {
-    List<String> genders = ['ذكر', 'أنثى'];
-    ShowModalBottomSheetC.showBottomSheet2(
-      data: Column(
-        children:
-            genders
-                .map(
-                  (e) => Container(
-                    margin: EdgeInsets.symmetric(vertical: Values.circle),
-                    width: Values.width * 0.8,
-                    child: ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(Values.circle),
-                      ),
-                      tileColor: ColorApp.stapperColor,
-                      title: Text(e, style: StringStyle.textButtom),
-                      leading: Icon(
-                        e == 'ذكر' ? Icons.elderly : Icons.elderly_woman,
-                        color: ColorApp.whiteColor,
-                      ),
-
-                      onTap: () {
-                        gender(e);
-                        Get.backLegacy();
-                      },
-                    ),
-                  ),
-                )
-                .toList(),
-      ),
-      title: 'اختر الجنس',
-    );
-  }
 
   //
   Future<void> confirmDeletePatient(Patient patient) async {
@@ -149,7 +203,7 @@ class AppointmentController extends GetxController {
                       onPressed: () async {
                         isLoading(true);
                         await Future.delayed(Duration(seconds: 1));
-                        await deletePatient(patient.id!);
+                        // await deletePatient(patient.id!);
                         isLoading(false);
                         Get.backLegacy();
                       },
@@ -164,63 +218,4 @@ class AppointmentController extends GetxController {
   //controller Database -->
   final DatabaseHelper _dbHelper = DatabaseHelper();
   var patientsList = <Patient>[].obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    fetchPatients();
-    searchPatient.addListener(() {
-      //
-      fetchPatients();
-    });
-  }
-
-  Future<void> fetchPatients() async {
-    final db = await _dbHelper.database;
-
-    List<Map<String, dynamic>> maps;
-
-    if (searchPatient.text.trim().isNotEmpty) {
-      // البحث عن المرضى الذين يحتوي اسمهم على النص المدخل
-      maps = await db.query(
-        'patients',
-        where: 'name LIKE ?',
-        whereArgs: [
-          '%${searchPatient.text.trim()}%',
-        ], // البحث باستخدام النسبة المئوية للبحث الجزئي
-      );
-    } else {
-      // جلب جميع المرضى إذا لم يتم توفير اسم
-      maps = await db.query('patients');
-    }
-
-    patientsList.assignAll(maps.map((map) => Patient.fromMap(map)).toList());
-  }
-
-  Future<void> addPatient(Patient patient) async {
-    final db = await _dbHelper.database;
-    await db.insert('patients', patient.toMap());
-    fetchPatients();
-  }
-
-  Future<void> updatePatient(Patient patient) async {
-    print("AAAA");
-
-    print(patient.toMap());
-    print("AAAA");
-    final db = await _dbHelper.database;
-    await db.update(
-      'patients',
-      patient.toMap(),
-      where: 'id = ?',
-      whereArgs: [patient.id],
-    );
-    fetchPatients();
-  }
-
-  Future<void> deletePatient(int id) async {
-    final db = await _dbHelper.database;
-    await db.delete('patients', where: 'id = ?', whereArgs: [id]);
-    fetchPatients();
-  }
 }

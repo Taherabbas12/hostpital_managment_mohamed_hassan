@@ -29,7 +29,7 @@ class DashboardController extends GetxController {
   String getTitle() => widgets[indexView.value].name;
   String getText() =>
       'أضافة ${indexView.value == 1
-          ? 'مريض'
+          ? 'مراجع'
           : indexView.value == 2
           ? 'دكتور'
           : 'حجز'}';

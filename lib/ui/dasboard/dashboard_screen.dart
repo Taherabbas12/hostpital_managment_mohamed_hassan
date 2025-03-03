@@ -23,7 +23,7 @@ class DashboardScreen extends StatelessWidget {
             style: StringStyle.textButtom,
           ),
         ),
-        backgroundColor: ColorApp.secondryColor,
+        backgroundColor: ColorApp.greenColor,
       ),
       body: SafeArea(child: Obx(() => dashboardController.getWidget())),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -36,7 +36,7 @@ class DashboardScreen extends StatelessWidget {
                   child: BottonsC.action2(
                     dashboardController.getText(),
                     dashboardController.viewAddAnyType,
-                    color: ColorApp.secondryColor,
+                    color: ColorApp.greenColor,
                   ),
                 )
                 : SizedBox(),
@@ -47,7 +47,7 @@ class DashboardScreen extends StatelessWidget {
           //
           currentIndex: dashboardController.indexView.value,
           //
-          selectedItemColor: ColorApp.secondryColor,
+          selectedItemColor: ColorApp.greenColor,
           type: BottomNavigationBarType.fixed,
           selectedFontSize: 16,
           selectedIconTheme: IconThemeData(size: 30),

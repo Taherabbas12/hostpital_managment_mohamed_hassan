@@ -166,6 +166,7 @@ class PatientController extends GetxController {
   final DatabaseHelper _dbHelper = DatabaseHelper();
   var patientsList = <Patient>[].obs;
 
+  Rx<Patient?> selectPatient = Rx(null);
   @override
   void onInit() {
     super.onInit();

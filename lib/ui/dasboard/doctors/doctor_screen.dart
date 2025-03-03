@@ -20,6 +20,7 @@ class DoctorScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        SizedBox(height: Values.circle * 0.5),
         InputText.inputStringValidator(
           'ابحث عن اسم الدكتور',
           patientController.searchPatient,

@@ -20,8 +20,9 @@ class PatientScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        SizedBox(height: Values.circle * 0.5),
         InputText.inputStringValidator(
-          'ابحث عن اسم المريض',
+          'ابحث عن اسم المراجع',
           patientController.searchPatient,
           validator: (e) => null,
         ),
@@ -29,7 +30,10 @@ class PatientScreen extends StatelessWidget {
           child: Obx(() {
             if (patientController.patientsList.isEmpty) {
               return Center(
-                child: Text('لا يوجد مرضى.', style: StringStyle.headLineStyle2),
+                child: Text(
+                  'لا يوجد مراجعين.',
+                  style: StringStyle.headLineStyle2,
+                ),
               );
             }
             return ListView.builder(

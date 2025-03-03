@@ -25,21 +25,22 @@ class AddPatinet extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: Values.spacerV),
           child: Form(
             key: patientController.formKey,
-            autovalidateMode: AutovalidateMode.always,
+
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'اضافة مريض',
+                  'اضافة المراجع',
                   style: StringStyle.headLineStyle2.copyWith(
-                    color: ColorApp.secondryColor,
+                    color: ColorApp.greenColor,
                   ),
                 ),
+                SizedBox(height: Values.circle * 0.5),
                 InputText.inputStringValidator(
-                  'اسم المريض',
+                  'اسم المراجع',
                   patientController.namePatient,
                   validator:
-                      (value) => Validators.notEmpty(value, 'اسم المريض'),
+                      (value) => Validators.notEmpty(value, 'اسم المراجع'),
                 ),
 
                 //
@@ -65,7 +66,7 @@ class AddPatinet extends StatelessWidget {
                       () => Text(
                         patientController.gender.isNotEmpty
                             ? patientController.gender.value
-                            : 'جنس المريض',
+                            : 'جنس المراجع',
                       ),
                     ),
                   ),
@@ -74,16 +75,16 @@ class AddPatinet extends StatelessWidget {
                 //
                 InputText.inputStringValidator(
                   isNumber: 2,
-                  'عمر المريض',
+                  'عمر المراجع',
                   patientController.agePatient,
                   validator:
-                      (value) => Validators.notEmpty(value, 'عمر المريض'),
+                      (value) => Validators.notEmpty(value, 'عمر المراجع'),
                 ),
                 InputText.inputStringValidator(
-                  'عنوان المريض',
+                  'عنوان المراجع',
                   patientController.addressPatient,
                   validator:
-                      (value) => Validators.notEmpty(value, 'عنوان المريض'),
+                      (value) => Validators.notEmpty(value, 'عنوان المراجع'),
                 ),
                 InputText.inputStringValidator(
                   isNumber: 11,
@@ -100,9 +101,9 @@ class AddPatinet extends StatelessWidget {
                           patientController.isLoading.value
                               ? LoadingIndicator()
                               : BottonsC.action2(
-                                'اضافة المريض',
+                                'اضافة المراجع',
                                 patientController.addPatien,
-                                color: ColorApp.secondryColor,
+                                color: ColorApp.greenColor,
                               ),
                     ),
                   ),

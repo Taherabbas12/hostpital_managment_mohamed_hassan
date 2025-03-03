@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'routes/app_pages.dart';
+import 'utils/constants/color_app.dart';
 import 'utils/constants/values_constant.dart';
 // import 'app/utils/constants/values_constant.dart';
 
@@ -31,7 +33,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
 
           initialRoute: AppPages.INITIAL,
+          theme: ThemeData(
+            textTheme: GoogleFonts.almaraiTextTheme(),
+            // textTheme: GoogleFonts.readexProTextTheme(),
+            fontFamily: 'readexPro',
 
+            appBarTheme: AppBarTheme(backgroundColor: ColorApp.greenColor),
+          ),
           builder: (context, child) {
             final mediaQuery = MediaQuery.of(context);
             // احسب معامل التحجيم بناءً على عرض الشاشة

@@ -26,16 +26,17 @@ class AddDoctor extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: Values.spacerV),
           child: Form(
             key: patientController.formKey,
-            autovalidateMode: AutovalidateMode.always,
+
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   'اضافة الدكتور',
                   style: StringStyle.headLineStyle2.copyWith(
-                    color: ColorApp.secondryColor,
+                    color: ColorApp.greenColor,
                   ),
                 ),
+                SizedBox(height: Values.circle * 0.5),
                 InputText.inputStringValidator(
                   'اسم الدكتور',
                   patientController.namePatient,
@@ -106,7 +107,7 @@ class AddDoctor extends StatelessWidget {
                               : BottonsC.action2(
                                 'اضافة الدكتور',
                                 patientController.addPatien,
-                                color: ColorApp.secondryColor,
+                                color: ColorApp.greenColor,
                               ),
                     ),
                   ),

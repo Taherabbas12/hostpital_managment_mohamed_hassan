@@ -18,7 +18,7 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'hospital.db');
+    String path = join(await getDatabasesPath(), 'hospital2.db');
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
@@ -44,5 +44,17 @@ class DatabaseHelper {
         phone TEXT
       )
     ''');
+    await db.execute('''
+  CREATE TABLE appointments(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    patient_id INTEGER,
+    doctor_id INTEGER,
+    appointment_date TEXT,
+    appointment_number TEXT,
+    status TEXT,
+    FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE,
+    FOREIGN KEY (doctor_id) REFERENCES doctors(id) ON DELETE CASCADE
+  )
+''');
   }
 }
