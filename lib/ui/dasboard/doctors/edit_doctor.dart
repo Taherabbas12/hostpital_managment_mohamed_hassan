@@ -78,7 +78,6 @@ class EditDoctor extends StatelessWidget {
 
                 //
                 InputText.inputStringValidator(
-                  isNumber: 2,
                   'تخصص الدكتور',
                   patientController.specialtyPatient,
                   validator:
