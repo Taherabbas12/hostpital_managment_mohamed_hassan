@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hostpital_managment/ui/dasboard/appointments/add_appointment.dart';
 
 import '../ui/dasboard/appointments/appointment_screen.dart';
 import '../ui/dasboard/doctors/add_Doctor.dart';
@@ -49,6 +50,13 @@ class DashboardController extends GetxController {
         barrierDismissible: true,
         barrierLabel: '',
         pageBuilder: (context, animation, secondaryAnimation) => AddDoctor(),
+      );
+    } else if (indexView.value == 3) {
+      Get.generalDialog(
+        barrierDismissible: true,
+        barrierLabel: '',
+        pageBuilder:
+            (context, animation, secondaryAnimation) => AddAppointment(),
       );
     }
   }

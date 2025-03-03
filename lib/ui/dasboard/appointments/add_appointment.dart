@@ -1,6 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hostpital_managment/controllers/doctor_controller.dart';
 import 'package:hostpital_managment/utils/constants/style_app.dart';
 
 import '../../../controllers/patient_controller.dart';
@@ -10,12 +11,11 @@ import '../../../utils/constants/values_constant.dart';
 import '../../../utils/validators.dart';
 import '../../widgets/actions_button.dart';
 import '../../widgets/common/loading_indicator.dart';
-import '../../widgets/common/show_modal_bottom_sheet_c.dart';
 import '../../widgets/input_text.dart';
 
-class AddDoctor extends StatelessWidget {
-  AddDoctor({super.key});
-  DoctorController patientController = Get.find<DoctorController>();
+class AddAppointment extends StatelessWidget {
+  AddAppointment({super.key});
+  PatientController patientController = Get.find<PatientController>();
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -31,46 +31,42 @@ class AddDoctor extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'اضافة الدكتور',
+                  'اضافة حجز',
                   style: StringStyle.headLineStyle2.copyWith(
                     color: ColorApp.secondryColor,
                   ),
                 ),
                 InputText.inputStringValidator(
-                  'اسم الدكتور',
+                  'اسم المريض',
                   patientController.namePatient,
                   validator:
-                      (value) => Validators.notEmpty(value, 'اسم الدكتور'),
+                      (value) => Validators.notEmpty(value, 'اسم المريض'),
                 ),
 
                 //
-                Padding(
-                  padding: EdgeInsets.all(Values.circle * 0.3),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(Values.circle),
-                    onTap: patientController.selectGender,
-                    child: Container(
-                      margin: EdgeInsets.all(Values.circle * 0.1),
-                      width: 300,
-                      height: 45,
-                      padding: EdgeInsets.symmetric(horizontal: Values.spacerV),
-                      alignment: Alignment.centerRight,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Values.circle),
+                InkWell(
+                  onTap: patientController.selectGender,
+                  child: Container(
+                    margin: EdgeInsets.all(Values.circle * 0.5),
+                    width: 300,
+                    height: 45,
+                    padding: EdgeInsets.symmetric(horizontal: Values.spacerV),
+                    alignment: Alignment.centerRight,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Values.circle),
 
-                        boxShadow: ShadowValues.shadowValues2,
+                      boxShadow: ShadowValues.shadowValues2,
 
-                        border: Border.all(
-                          color: ColorApp.subColor.withAlpha(150),
-                          width: 0.5,
-                        ),
+                      border: Border.all(
+                        color: ColorApp.subColor.withAlpha(150),
+                        width: 0.5,
                       ),
-                      child: Obx(
-                        () => Text(
-                          patientController.gender.isNotEmpty
-                              ? patientController.gender.value
-                              : 'جنس الدكتور/ة',
-                        ),
+                    ),
+                    child: Obx(
+                      () => Text(
+                        patientController.gender.isNotEmpty
+                            ? patientController.gender.value
+                            : 'جنس المريض',
                       ),
                     ),
                   ),
@@ -78,16 +74,17 @@ class AddDoctor extends StatelessWidget {
 
                 //
                 InputText.inputStringValidator(
-                  'تخصص الدكتور',
-                  patientController.specialtyPatient,
+                  isNumber: 2,
+                  'عمر المريض',
+                  patientController.agePatient,
                   validator:
-                      (value) => Validators.notEmpty(value, 'تخصص الدكتور'),
+                      (value) => Validators.notEmpty(value, 'عمر المريض'),
                 ),
                 InputText.inputStringValidator(
-                  'عنوان الدكتور',
+                  'عنوان المريض',
                   patientController.addressPatient,
                   validator:
-                      (value) => Validators.notEmpty(value, 'عنوان الدكتور'),
+                      (value) => Validators.notEmpty(value, 'عنوان المريض'),
                 ),
                 InputText.inputStringValidator(
                   isNumber: 11,
@@ -104,7 +101,7 @@ class AddDoctor extends StatelessWidget {
                           patientController.isLoading.value
                               ? LoadingIndicator()
                               : BottonsC.action2(
-                                'اضافة الدكتور',
+                                'اضافة المريض',
                                 patientController.addPatien,
                                 color: ColorApp.secondryColor,
                               ),
