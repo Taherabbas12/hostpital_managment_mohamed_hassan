@@ -30,12 +30,7 @@ class AddAppointment extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'اضافة حجز',
-                  style: StringStyle.headLineStyle2.copyWith(
-                    color: ColorApp.secondryColor,
-                  ),
-                ),
+                BottonsC.action1('اختيار المريض', () {}),
                 InputText.inputStringValidator(
                   'اسم المريض',
                   patientController.namePatient,
