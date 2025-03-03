@@ -1,7 +1,6 @@
 // import 'package:drop_down_search_field/drop_down_search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/constants/color_app.dart';
 import '../../utils/constants/shadow_values.dart';
 import '../../utils/constants/style_app.dart';
@@ -17,8 +16,8 @@ class InputText {
     FocusNode? focusNode,
   }) => Container(
     margin: EdgeInsets.symmetric(vertical: Values.circle * 0.3),
-    height: 45.h,
-    width: w.w,
+    height: 45,
+    width: w,
     child: TextFormField(
       focusNode: focusNode,
       onFieldSubmitted: onFieldSubmitted,
@@ -33,12 +32,12 @@ class InputText {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Color.fromARGB(255, 168, 168, 168),
-            width: 2.w,
+            width: 2,
           ),
           borderRadius: BorderRadius.circular(Values.circle * 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: ColorApp.subColor, width: 2.w),
+          borderSide: BorderSide(color: ColorApp.subColor, width: 2),
           borderRadius: BorderRadius.circular(Values.circle * 0.5),
         ),
         border: OutlineInputBorder(
@@ -49,7 +48,7 @@ class InputText {
             color: ColorApp.backgroundColorContent,
             borderRadius: BorderRadius.circular(Values.circle),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Text(name, style: StringStyle.textLabil),
         ),
       ),
@@ -65,7 +64,7 @@ class InputText {
   }) => Container(
     margin: EdgeInsets.all(Values.circle * 0.5),
     decoration: BoxDecoration(boxShadow: ShadowValues.shadowValues2),
-    width: w.w,
+    width: w,
     child: TextFormField(
       maxLines: maxLine,
       controller: controller,
@@ -76,12 +75,12 @@ class InputText {
       style: StringStyle.textTable,
       decoration: InputDecoration(
         fillColor: ColorApp.whiteColor,
-        contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.h),
+        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+
         // border: OutlineInputBorder(
         //     borderRadius:
         //         BorderRadius.circular(Values.circle), // تدوير الحواف
         //     borderSide: BorderSide.none), // إزالة الحدود
-        
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: ColorApp.subColor.withAlpha(150),
@@ -117,7 +116,7 @@ class InputText {
             color: ColorApp.backgroundColorContent,
             borderRadius: BorderRadius.circular(Values.circle),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Text(
             name,
             style: StringStyle.textTable.copyWith(color: ColorApp.whiteColor),
@@ -142,7 +141,7 @@ class InputText {
     // decoration: BoxDecoration(
     //     boxShadow: ShadowValues.shadowValues2,
     //     borderRadius: BorderRadius.circular(Values.circle)),
-    width: w.w,
+    width: w,
     child: TextFormField(
       onChanged: onChanged,
       obscureText: isPassword,
@@ -156,7 +155,7 @@ class InputText {
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: ColorApp.textSecondryColor),
         fillColor: ColorApp.whiteColor,
-        contentPadding: EdgeInsets.symmetric(vertical: 15.h),
+        contentPadding: EdgeInsets.symmetric(vertical: 15),
         // border: OutlineInputBorder(
         //     borderRadius:
         //         BorderRadius.circular(Values.circle), // تدوير الحواف
@@ -196,7 +195,7 @@ class InputText {
             // color: ColorApp.backgroundColor2,
             borderRadius: BorderRadius.circular(Values.circle),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Text(
             name,
             style: StringStyle.textTable.copyWith(color: ColorApp.subColor),
@@ -233,7 +232,7 @@ class InputText {
       boxShadow: ShadowValues.shadowValues,
       borderRadius: BorderRadius.circular(Values.circle),
     ),
-    width: w.w,
+    width: w,
     child: TextFormField(
       obscureText: isPassword,
       maxLines: maxLine,
@@ -281,7 +280,7 @@ class InputText {
             // color: ColorApp.backgroundColor2,
             borderRadius: BorderRadius.circular(Values.circle),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Text(
             name,
             style: StringStyle.textTable.copyWith(color: ColorApp.subColor),
@@ -304,8 +303,8 @@ class InputText {
     void Function(String)? onFieldSubmitted,
   }) => Container(
     margin: EdgeInsets.all(Values.circle * 0.3),
-    width: 300.w,
-    height: 45.h,
+    width: 300,
+    height: 45,
     child: TextField(
       inputFormatters: [
         if (isNumber >= 1) FilteringTextInputFormatter.digitsOnly,
@@ -331,7 +330,7 @@ class InputText {
             color: ColorApp.headerColor,
             borderRadius: BorderRadius.circular(Values.circle),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Text(
             name,
             style: StringStyle.textButtom.copyWith(color: ColorApp.blackColor),

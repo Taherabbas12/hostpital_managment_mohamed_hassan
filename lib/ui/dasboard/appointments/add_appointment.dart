@@ -241,7 +241,7 @@ class AddAppointment extends StatelessWidget {
                     width: 200,
                     child: Obx(
                       () =>
-                          patientController.isLoading.value
+                          appointmentController.isLoading.value
                               ? LoadingIndicator()
                               : BottonsC.action2(
                                 'اضافة حجز',

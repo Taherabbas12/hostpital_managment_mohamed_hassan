@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'color_app.dart';
 
@@ -7,34 +6,44 @@ class StringStyle {
   static const double fontSize = 1;
 
   static TextStyle headerStyle = TextStyle(
-      fontSize: (18 * fontSize).sp,
-      fontWeight: FontWeight.bold,
-      color: ColorApp.textPrimaryColor);
-  static TextStyle textTable =
-      TextStyle(fontSize: (14 * fontSize).sp, color: ColorApp.textPrimaryColor);
+    fontSize: (18 * fontSize),
+    fontWeight: FontWeight.bold,
+    color: ColorApp.textPrimaryColor,
+  );
+  static TextStyle textTable = TextStyle(
+    fontSize: (14 * fontSize),
+    color: ColorApp.textPrimaryColor,
+  );
 
   static TextStyle textLabil = TextStyle(
-      fontSize: (16 * fontSize).sp, color: ColorApp.textSecondryColor);
+    fontSize: (16 * fontSize),
+    color: ColorApp.textSecondryColor,
+  );
   static TextStyle textTitle = TextStyle(
-      fontSize: (17 * fontSize).sp,
-      fontWeight: FontWeight.bold,
-      color: ColorApp.textSecondryColor);
+    fontSize: (17 * fontSize),
+    fontWeight: FontWeight.bold,
+    color: ColorApp.textSecondryColor,
+  );
   static TextStyle textLabilBold = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: (14 * fontSize).sp,
-      color: ColorApp.textSecondryColor);
+    fontWeight: FontWeight.bold,
+    fontSize: (14 * fontSize),
+    color: ColorApp.textSecondryColor,
+  );
   static TextStyle textButtom = TextStyle(
-      fontSize: (20 * fontSize).sp,
-      fontWeight: FontWeight.bold,
-      color: ColorApp.textThredColor);
+    fontSize: (20 * fontSize),
+    fontWeight: FontWeight.bold,
+    color: ColorApp.textThredColor,
+  );
   static TextStyle headLineStyle = TextStyle(
-      fontSize: (30 * fontSize).sp,
-      fontWeight: FontWeight.bold,
-      color: ColorApp.primaryColor);
+    fontSize: (30 * fontSize),
+    fontWeight: FontWeight.bold,
+    color: ColorApp.primaryColor,
+  );
   static TextStyle headLineStyle2 = TextStyle(
-      fontSize: (26 * fontSize).sp,
-      fontWeight: FontWeight.bold,
-      color: ColorApp.primaryColor);
+    fontSize: (26 * fontSize),
+    fontWeight: FontWeight.bold,
+    color: ColorApp.primaryColor,
+  );
   // static const titleStyle =
   //     TextStyle(fontSize: 20 * fontSize, color: Colors.white);
   // static const titleBoldStyle = TextStyle(

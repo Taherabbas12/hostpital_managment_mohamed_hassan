@@ -1,65 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../utils/constants/color_app.dart';
 import '../../utils/constants/style_app.dart';
 import '../../utils/constants/values_constant.dart';
-import 'common/svg_show.dart';
 
 class BottonsC {
   //
-  static Widget action1(String name, void Function()? onPressed,
-      {Color color = ColorApp.primaryColor, double h = 50, IconData? icon}) {
+  static Widget action1(
+    String name,
+    void Function()? onPressed, {
+    Color color = ColorApp.primaryColor,
+    double h = 50,
+    IconData? icon,
+  }) {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: Values.circle * 0.2),
-        child: MaterialButton(
-            color: color,
-            height: h.h,
-            onPressed: onPressed,
-            padding: EdgeInsets.symmetric(horizontal: Values.circle * 4),
-            hoverElevation: Values.circle,
-            hoverColor: ColorApp.greenColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Values.circle)),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(name, style: StringStyle.textButtom),
-              if (icon != null)
-                Icon(icon, size: 35, color: ColorApp.backgroundColor)
-            ])));
+      padding: EdgeInsets.symmetric(vertical: Values.circle * 0.2),
+      child: MaterialButton(
+        color: color,
+        height: h,
+        onPressed: onPressed,
+        padding: EdgeInsets.symmetric(horizontal: Values.circle * 4),
+        hoverElevation: Values.circle,
+        hoverColor: ColorApp.greenColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Values.circle),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(name, style: StringStyle.textButtom),
+            if (icon != null)
+              Icon(icon, size: 35, color: ColorApp.backgroundColor),
+          ],
+        ),
+      ),
+    );
   }
 
-  static Widget action2(String name, void Function()? onPressed,
-      {Color color = ColorApp.primaryColor,
-      double h = 50,
-      IconData? icon,
-      double iconSize = 35}) {
+  static Widget action2(
+    String name,
+    void Function()? onPressed, {
+    Color color = ColorApp.primaryColor,
+    double h = 50,
+    IconData? icon,
+    double iconSize = 35,
+  }) {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: Values.circle * 0.2),
-        child: MaterialButton(
-            color: color,
-            height: h.h,
-            minWidth: 125.w,
-            elevation: 0.5,
-            onPressed: onPressed,
-            hoverElevation: Values.circle,
-            hoverColor: ColorApp.greenColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Values.circle)),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (icon != null)
-                Icon(icon, size: iconSize, color: ColorApp.backgroundColor),
-              if (icon != null) SizedBox(width: Values.circle),
-              Text(name,
-                  style: StringStyle.textButtom
-                      .copyWith(color: ColorApp.whiteColor)),
-            ])));
+      padding: EdgeInsets.symmetric(vertical: Values.circle * 0.2),
+      child: MaterialButton(
+        color: color,
+        height: h,
+        minWidth: 125,
+        elevation: 0.5,
+        onPressed: onPressed,
+        hoverElevation: Values.circle,
+        hoverColor: ColorApp.greenColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Values.circle),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null)
+              Icon(icon, size: iconSize, color: ColorApp.backgroundColor),
+            if (icon != null) SizedBox(width: Values.circle),
+            Text(
+              name,
+              style: StringStyle.textButtom.copyWith(
+                color: ColorApp.whiteColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  static Widget action3(String name,
-      {Color colorBorder = ColorApp.primaryColor,
-      Color color = ColorApp.subColor,
-      void Function()? onPressed,
-      double h = 50,
-      double iconSize = 35}) {
+  static Widget action3(
+    String name, {
+    Color colorBorder = ColorApp.primaryColor,
+    Color color = ColorApp.subColor,
+    void Function()? onPressed,
+    double h = 50,
+    double iconSize = 35,
+  }) {
     return InkWell(
       borderRadius: BorderRadius.circular(Values.circle),
       onTap: onPressed,
@@ -67,16 +90,19 @@ class BottonsC {
         alignment: Alignment.center,
         width: 115,
         padding: EdgeInsets.symmetric(
-            horizontal: Values.spacerV, vertical: Values.circle * 0.8),
+          horizontal: Values.spacerV,
+          vertical: Values.circle * 0.8,
+        ),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Values.circle),
-            border: Border.all(color: colorBorder)),
+          borderRadius: BorderRadius.circular(Values.circle),
+          border: Border.all(color: colorBorder),
+        ),
         child: Text(name, style: StringStyle.textLabil.copyWith(color: color)),
       ),
     );
   }
 
-//
+  //
   static Widget actionIcon(
     IconData icon,
     String name,
@@ -87,20 +113,22 @@ class BottonsC {
     EdgeInsets? padding,
   }) {
     return Container(
-        key: key,
-        width: size.w,
-        height: size.w,
-        margin:
-            padding ?? EdgeInsets.symmetric(horizontal: Values.circle * 0.2),
-        decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(Values.circle * 0.4)),
-        child: IconButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: onPressed,
-            icon: Icon(icon, size: (size * 0.8).w),
-            tooltip: name,
-            color: ColorApp.whiteColor));
+      key: key,
+      width: size,
+      height: size,
+      margin: padding ?? EdgeInsets.symmetric(horizontal: Values.circle * 0.2),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(Values.circle * 0.4),
+      ),
+      child: IconButton(
+        padding: const EdgeInsets.all(0),
+        onPressed: onPressed,
+        icon: Icon(icon, size: (size * 0.8)),
+        tooltip: name,
+        color: ColorApp.whiteColor,
+      ),
+    );
   }
 
   // static Widget actionSvgIcon(
@@ -135,28 +163,34 @@ class BottonsC {
   // }
 
   static Widget actionIconWithOutColor(
-      IconData icon, String name, void Function()? onPressed,
-      {Color color = ColorApp.backgroundColorContent,
-      Color colorBackgraond = ColorApp.whiteColor,
-      Color colorBorder = ColorApp.whiteColor,
-      double circle = 4,
-      double size = 35,
-      Key? key}) {
+    IconData icon,
+    String name,
+    void Function()? onPressed, {
+    Color color = ColorApp.backgroundColorContent,
+    Color colorBackgraond = ColorApp.whiteColor,
+    Color colorBorder = ColorApp.whiteColor,
+    double circle = 4,
+    double size = 35,
+    Key? key,
+  }) {
     return Container(
-        key: key,
-        width: (size + 6).w,
-        height: (size + 6).w,
-        margin: EdgeInsets.symmetric(horizontal: Values.circle * 0.2),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            color: colorBackgraond,
-            border: Border.all(color: colorBorder),
-            borderRadius: BorderRadius.circular(circle)),
-        child: IconButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: onPressed,
-            icon: Icon(icon, size: (size).w, color: color),
-            tooltip: name,
-            color: ColorApp.whiteColor));
+      key: key,
+      width: (size + 6),
+      height: (size + 6),
+      margin: EdgeInsets.symmetric(horizontal: Values.circle * 0.2),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: colorBackgraond,
+        border: Border.all(color: colorBorder),
+        borderRadius: BorderRadius.circular(circle),
+      ),
+      child: IconButton(
+        padding: const EdgeInsets.all(0),
+        onPressed: onPressed,
+        icon: Icon(icon, size: (size), color: color),
+        tooltip: name,
+        color: ColorApp.whiteColor,
+      ),
+    );
   }
 }

@@ -74,7 +74,9 @@ class AppointmentScreen extends StatelessWidget {
               return Center(
                 child: Text(
                   'لا يوجد حجوزات.',
-                  style: StringStyle.headLineStyle2,
+                  style: StringStyle.headLineStyle2.copyWith(
+                    color: ColorApp.redColor,
+                  ),
                 ),
               );
             }
@@ -136,25 +138,25 @@ class AppointmentScreen extends StatelessWidget {
                           ),
                         ),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              color: ColorApp.textFourColor,
-                              onPressed: () {
-                                // patientController.editPatien(patient);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(CupertinoIcons.trash),
-                              color: const Color.fromARGB(255, 239, 21, 21),
-                              onPressed: () {
-                                // patientController.confirmDeletePatient(patient);
-                              },
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.end,
+                        //   children: [
+                        //     IconButton(
+                        //       icon: Icon(Icons.edit),
+                        //       color: ColorApp.textFourColor,
+                        //       onPressed: () {
+                        //         // patientController.editPatien(patient);
+                        //       },
+                        //     ),
+                        //     IconButton(
+                        //       icon: Icon(CupertinoIcons.trash),
+                        //       color: const Color.fromARGB(255, 239, 21, 21),
+                        //       onPressed: () {
+                        //         // patientController.confirmDeletePatient(patient);
+                        //       },
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

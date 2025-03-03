@@ -160,7 +160,10 @@ class AppointmentController extends GetxController {
           status: '',
         ),
       );
-
+      await fetchAppointments().then((v) {
+        appointmentsSelectDateFilter.value = appointments.value;
+      });
+      print(isLoading.value);
       await Future.delayed(Duration(seconds: 1));
       isLoading(false);
       Get.backLegacy();

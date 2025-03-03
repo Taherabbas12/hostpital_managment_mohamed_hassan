@@ -23,26 +23,28 @@ class HomeScreen extends StatelessWidget {
         children: [
           SizedBox(
             height: 110,
-            child: Row(
-              children: [
-                SizedBox(width: Values.circle * 0.5),
-                viewTotal(
-                  'المراجعين',
-                  patientController.patientsList.length.toString(),
-                ),
-                SizedBox(width: Values.circle * 0.5),
-                viewTotal(
-                  'الدكاترة',
-                  doctorController.doctorsList.length.toString(),
-                ),
-                SizedBox(width: Values.circle * 0.5),
-                viewTotal(
-                  'الحجوزات',
-                  appointmentController.appointments.length.toString(),
-                ),
-                SizedBox(width: Values.circle * 0.5),
-              ],
-            ),
+            child: Obx(() {
+              return Row(
+                children: [
+                  SizedBox(width: Values.circle * 0.5),
+                  viewTotal(
+                    'المراجعين',
+                    patientController.patientsList.length.toString(),
+                  ),
+                  SizedBox(width: Values.circle * 0.5),
+                  viewTotal(
+                    'الدكاترة',
+                    doctorController.doctorsList.length.toString(),
+                  ),
+                  SizedBox(width: Values.circle * 0.5),
+                  viewTotal(
+                    'الحجوزات',
+                    appointmentController.appointments.length.toString(),
+                  ),
+                  SizedBox(width: Values.circle * 0.5),
+                ],
+              );
+            }),
           ),
 
           Expanded(child: AppointmentScreen()),

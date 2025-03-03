@@ -32,7 +32,9 @@ class DoctorScreen extends StatelessWidget {
               return Center(
                 child: Text(
                   'لا يوجد دكاترة.',
-                  style: StringStyle.headLineStyle2,
+                  style: StringStyle.headLineStyle2.copyWith(
+                    color: ColorApp.redColor,
+                  ),
                 ),
               );
             }
